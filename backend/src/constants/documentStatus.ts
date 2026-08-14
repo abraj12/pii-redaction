@@ -1,0 +1,39 @@
+export const DOCUMENT_STATUSES = {
+    UPLOADED: 'uploaded',
+    VALIDATING: 'validating',
+    EXTRACTING: 'extracting',
+    OCR_PROCESSING: 'ocr_processing',
+    DETECTING_PII: 'detecting_pii',
+    CLASSIFYING: 'classifying',
+    REDACTING: 'redacting',
+    VERIFYING: 'verifying',
+    COMPLETED: 'completed',
+    COMPLETED_NO_PII: 'completed_no_pii',
+    REDACTED: 'redacted',
+    FAILED: 'failed',
+    EXTRACTION_FAILED: 'extraction_failed',
+    REDACTION_VERIFICATION_FAILED: 'redaction_verification_failed',
+    CANCELLED: 'cancelled'
+} as const;
+
+export type DocumentStatus = typeof DOCUMENT_STATUSES[keyof typeof DOCUMENT_STATUSES];
+
+export const TERMINAL_DOCUMENT_STATUSES: DocumentStatus[] = [
+    DOCUMENT_STATUSES.COMPLETED,
+    DOCUMENT_STATUSES.COMPLETED_NO_PII,
+    DOCUMENT_STATUSES.REDACTED,
+    DOCUMENT_STATUSES.FAILED,
+    DOCUMENT_STATUSES.EXTRACTION_FAILED,
+    DOCUMENT_STATUSES.REDACTION_VERIFICATION_FAILED,
+    DOCUMENT_STATUSES.CANCELLED
+];
+
+export const PROCESSING_DOCUMENT_STATUSES: DocumentStatus[] = [
+    DOCUMENT_STATUSES.VALIDATING,
+    DOCUMENT_STATUSES.EXTRACTING,
+    DOCUMENT_STATUSES.OCR_PROCESSING,
+    DOCUMENT_STATUSES.DETECTING_PII,
+    DOCUMENT_STATUSES.CLASSIFYING,
+    DOCUMENT_STATUSES.REDACTING,
+    DOCUMENT_STATUSES.VERIFYING
+];

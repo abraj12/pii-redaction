@@ -1,0 +1,39 @@
+services:
+  # 1. PII Engine (Private Service)
+  - type: pserv
+    name: pii-engine
+    env: docker
+    region: oregon # Use the closest region
+    dockerfilePath: ./pii-engine/Dockerfile
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: LOG_LEVEL
+        value: INFO
+
+  # 2. Node.js Backend (Public Web Service)
+  - type: web
+    name: pii-backend
+    env: node
+    region: oregon
+    rootDir: ./backend
+    buildCommand: npm install --legacy-peer-deps && npm run build
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false # Set via dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        sync: false # Set via dashboard (e.g. Vercel URL)
+      - key: PII_ENGINE_URL
+        fromService:
+          type: pserv
+          name: pii-engine
+          property: hostport
+        # Note: Render provides internal host and port

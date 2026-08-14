@@ -1,0 +1,23 @@
+# IT Support Ticket Log
+Date: 2023-10-24
+
+Ticket ID: 89912
+User: Rashi Patil
+Email: rashi@example.com
+Phone: +91 9876543210
+IP Address: 192.168.1.105
+
+Description:
+User Rashi Patil reported that she cannot access the internal portal from her home IP Address 192.168.1.105. 
+She requested an update to be sent to rashi@example.com. Her manager, John Doe, approved this request.
+
+Ticket ID: 89913
+User: Michael Brown
+Company: Example Technologies Pvt Ltd
+Address: 123 Example Street, New Delhi, India
+SSN: 123-45-6789
+
+Description:
+Michael Brown from Example Technologies Pvt Ltd requested a hardware replacement to be shipped to 123 Example Street, New Delhi, India.
+He verified his identity using SSN 123-45-6789 and paid the shipping fee using Credit Card 4111 1111 1111 1111.
+His date of birth on file is 1990-05-15.

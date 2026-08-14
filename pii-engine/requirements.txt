@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+pydantic
+presidio-analyzer
+presidio-anonymizer
+spacy
+python-multipart
+pymupdf
+python-docx
+phonenumbers
+pytest
+httpx
+pytesseract
+Pillow
