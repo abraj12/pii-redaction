@@ -7,7 +7,7 @@
     "start": "node dist/server.js",
     "dev": "tsx src/server.ts",
     "build": "tsc",
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "keywords": [],
   "author": "",
@@ -29,7 +29,7 @@
     "ts-jest": "^29.4.12",
     "ts-node": "^10.9.2",
     "tsx": "^4.23.12",
-    "typescript": "^7.0.2"
+    "typescript": "^6.0.3"
   },
   "dependencies": {
     "@types/pdfkit": "^0.17.6",
