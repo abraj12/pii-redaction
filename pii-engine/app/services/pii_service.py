@@ -20,17 +20,28 @@ def _pattern(name: str, regex: str, score: float) -> Pattern:
 
 class PIIService:
     def __init__(self):
+        self.analyzer = None
+        self.anonymizer = None
+
+    def initialize(self):
+        if self.analyzer is not None:
+            return
+            
+        print("[STARTUP] Loading spaCy model: en_core_web_sm...")
         provider = NlpEngineProvider(nlp_configuration={
             "nlp_engine_name": "spacy",
-            "models": [{"lang_code": "en", "model_name": "en_core_web_lg"}]
+            "models": [{"lang_code": "en", "model_name": "en_core_web_sm"}]
         })
         nlp_engine = provider.create_engine()
+        print("[STARTUP] spaCy model loaded")
 
+        print("[STARTUP] Initializing Presidio...")
         registry = RecognizerRegistry()
         registry.load_predefined_recognizers(nlp_engine=nlp_engine)
         self._register_custom_recognizers(registry)
         self.analyzer = AnalyzerEngine(registry=registry, nlp_engine=nlp_engine)
         self.anonymizer = AnonymizerEngine()
+        print("[STARTUP] Presidio ready")
 
     def _register_custom_recognizers(self, registry: RecognizerRegistry) -> None:
         recognizers = [
@@ -69,9 +80,11 @@ class PIIService:
             registry.add_recognizer(recognizer)
 
     def analyze_text(self, text: str) -> List[Any]:
+        self.initialize()
         return self.analyzer.analyze(text=text, entities=SUPPORTED_ENTITIES, language="en")
 
     def redact_text(self, text: str, analyzer_results: List[Any], mapping: Dict = None) -> (str, Dict):
+        self.initialize()
         if mapping is None:
             mapping = {}
 

@@ -15,7 +15,17 @@ class AnalyzeRequest(BaseModel):
     text: str
     filename: str
 
-app = FastAPI(title="PII Redaction Engine API")
+from contextlib import asynccontextmanager
+import threading
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("[STARTUP] Starting FastAPI")
+    threading.Thread(target=pii_service.initialize).start()
+    yield
+    print("[SHUTDOWN] Application shutting down")
+
+app = FastAPI(title="PII Redaction Engine API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -28,9 +38,9 @@ app.add_middleware(
 pii_service = PIIService()
 document_processor = DocumentProcessor(pii_service)
 
-@app.get("/health")
+@app.get("/healthz")
 async def health_check():
-    return {"status": "healthy"}
+    return {"status": "ok"}
 
 @app.post("/api/v1/analyze")
 async def analyze_document(request: AnalyzeRequest):
