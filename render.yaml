@@ -1,6 +1,6 @@
 services:
-  # 1. PII Engine (Private Service)
-  - type: pserv
+  # 1. PII Engine (Public Web Service)
+  - type: web
     name: pii-engine
     env: docker
     region: oregon # Use the closest region
@@ -32,8 +32,6 @@ services:
       - key: FRONTEND_URL
         sync: false # Set via dashboard (e.g. Vercel URL)
       - key: PII_ENGINE_URL
-        fromService:
-          type: pserv
-          name: pii-engine
-          property: hostport
-        # Note: Render provides internal host and port
+        value: https://pii-redaction-1.onrender.com
+      - key: CORS_ORIGIN
+        sync: false

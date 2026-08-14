@@ -22,7 +22,7 @@ const numberValue = (name: string, fallback: number): number => {
 
 export const env = {
     nodeEnv: process.env.NODE_ENV || 'development',
-    port: numberValue('PORT', 5000),
+    port: numberValue('PORT', 10000),
     frontendUrl: process.env.FRONTEND_URL || 'http://localhost:5173',
     mongodbUri: required('MONGODB_URI'),
     jwtSecret: required('JWT_SECRET'),

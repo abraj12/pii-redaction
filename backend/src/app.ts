@@ -47,7 +47,7 @@ app.use('/api/documents', documentRoutes);
 app.use('/api/admin', adminRoutes);
 
 app.get('/health', (req, res) => {
-    res.json({ status: 'healthy' });
+    res.json({ status: 'ok', service: 'pii-redaction-backend' });
 });
 
 // Basic Error handler

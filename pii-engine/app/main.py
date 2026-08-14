@@ -39,8 +39,12 @@ pii_service = PIIService()
 document_processor = DocumentProcessor(pii_service)
 
 @app.get("/healthz")
-async def health_check():
+async def health_check_z():
     return {"status": "ok"}
+
+@app.get("/health")
+async def health_check():
+    return {"status": "ok", "service": "pii-redaction-engine"}
 
 @app.post("/api/v1/analyze")
 async def analyze_document(request: AnalyzeRequest):
